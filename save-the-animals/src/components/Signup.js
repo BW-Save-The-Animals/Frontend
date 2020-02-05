@@ -1,6 +1,14 @@
-import React from 'react'
-import { FormControl, Stack, Input, Select, Button } from '@chakra-ui/core'
+import React, { useState } from 'react'
+import {
+  FormControl,
+  Stack,
+  Input,
+  Select,
+  Button,
+  Textarea,
+} from '@chakra-ui/core'
 import Yup from 'yup'
+import axios from 'axios'
 import styled from '@emotion/styled'
 
 const StyledSignUpForm = styled.div`
@@ -19,38 +27,89 @@ export default function Signup() {
     name: '',
     email: '',
     password: '',
+    confirmPassword: '',
+    about: '',
     user_type: '',
+  }
+
+  const [formValues, setFormValues] = useState(initialValues)
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    console.log(formValues)
+    axios
+      .post('https://save-all-the-animals.herokuapp.com/api/auth/register', {
+        name: formValues.name,
+        email: formValues.email,
+        password: formValues.confirmPassword,
+        about: formValues.about,
+        user_type: formValues.user_type,
+      })
+      .then(function(response) {
+        console.log(response)
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+    setFormValues(initialValues)
+  }
+  const handleChange = e => {
+    if (e.target.type === 'select-one') {
+      setFormValues({
+        ...formValues,
+        [e.target.name]: e.target.options[
+          e.target.selectedIndex
+        ].index.toString(),
+      })
+      console.log(e.target.options[e.target.selectedIndex].index.toString())
+    } else {
+      setFormValues({ ...formValues, [e.target.name]: e.target.value })
+    }
+    console.log(formValues)
   }
   return (
     <StyledSignUpForm>
-      <FormHeading>Sign Up for your free account</FormHeading>
+      <FormHeading>Sign up for your free account</FormHeading>
       <FormControl>
         <Stack spacing={3}>
           <Input
             type='text'
-            name='signupName'
-            id='signupName'
+            name='name'
             placeholder='Name'
+            value={formValues.name}
+            onChange={handleChange}
           />
           <Input
             type='email'
-            name='signupEmail'
-            id='signupEmail'
+            name='email'
             placeholder='Email'
+            value={formValues.email}
+            onChange={handleChange}
           />
           <Input
             type='password'
-            name='signupPassword'
-            id='signupPassword'
+            name='password'
             placeholder='Password'
+            value={formValues.password}
+            onChange={handleChange}
           />
           <Input
             type='password'
-            name='signupConfirmPassword'
-            id='signupConfirmPassword'
+            name='confirmPassword'
             placeholder='Confirm Password'
+            value={formValues.confirmPassword}
+            onChange={handleChange}
           />
-          <Select placeholder='Account Type'>
+          <Textarea
+            name='about'
+            placeholder='A little about yourself'
+            value={formValues.about}
+            onChange={handleChange}
+          />
+          <Select
+            name='user_type'
+            placeholder='Account Type'
+            onChange={handleChange}>
             <option value='supporter'>Supporter</option>
             <option value='organization'>Organization</option>
           </Select>
@@ -58,7 +117,8 @@ export default function Signup() {
         <Button
           mt={4}
           variantColor='green'
-          type='submit'>
+          type='submit'
+          onClick={handleSubmit}>
           Submit
         </Button>
       </FormControl>
