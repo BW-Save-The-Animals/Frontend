@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import {
   Box,
@@ -15,12 +16,13 @@ const StyledLogin = styled.div`
   margin: 0 auto;
 `
 
-export default function Login() {
+export default function Login(props) {
   const initialValues = {
     email: '',
     password: '',
   }
   const [loginValues, setLoginValues] = useState(initialValues)
+  const [loggedIn, setLoggedIn] = useState(false)
 
   const handleChange = e => {
     setLoginValues({
@@ -35,43 +37,54 @@ export default function Login() {
         email: loginValues.email,
         password: loginValues.password,
       })
-      .then(resp => console.log(resp.data))
+      .then(res => {
+        console.log(res.data)
+        setLoggedIn(true)
+      })
       .catch(err => console.error(err))
     setLoginValues(initialValues)
   }
 
   return (
-    <StyledLogin>
-      <Box
-        w='25vw'
-        border='1px'
-        borderRadius='md'
-        p={4}
-        color='black'
-        borderColor='grey'>
-        <Heading>Login</Heading>
-        <FormControl>
-          <Stack spacing={3}>
-            <Input
-              type='email'
-              placeholder='email'
-              name='email'
-              value={loginValues.email}
-              onChange={handleChange}
-            />
-            <Input
-              type='password'
-              placeholder='password'
-              name='password'
-              value={loginValues.password}
-              onChange={handleChange}
-            />
-            <Button variantColor='teal' m={2} size='lg' onClick={handleSubmit}>
-              Login
-            </Button>
-          </Stack>
-        </FormControl>
-      </Box>
-    </StyledLogin>
+    <>
+      <StyledLogin>
+        <Box
+          w='25vw'
+          border='1px'
+          borderRadius='md'
+          p={4}
+          color='black'
+          borderColor='grey'>
+          <Heading>Login</Heading>
+          <form onSubmit={props.onSubmit}>
+            <FormControl>
+              <Stack spacing={3}>
+                <Input
+                  type='email'
+                  placeholder='email'
+                  name='email'
+                  value={loginValues.email}
+                  onChange={handleChange}
+                />
+                <Input
+                  type='password'
+                  placeholder='password'
+                  name='password'
+                  value={loginValues.password}
+                  onChange={handleChange}
+                />
+                <Button
+                  variantColor='teal'
+                  m={2}
+                  size='lg'
+                  tyep="submit">
+                  Login
+                </Button>
+              </Stack>
+            </FormControl>
+          </form>
+        </Box>
+      </StyledLogin>
+    </>
   )
 }
