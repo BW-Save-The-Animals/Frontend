@@ -1,25 +1,19 @@
-import React, { useState } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+// import libraries
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
 import { ThemeProvider, CSSReset } from '@chakra-ui/core'
+
+// import components
 import Home from './components/Home'
+import NavBar from './components/NavBar'
 import Login from './components/Login'
 import Signup from './components/Signup'
-import NavBar from './components/NavBar'
 import Campaigns from './components/Campaigns'
-import './components/App.css'
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
-
-  function handleLogin() {
-    setLoggedIn(true)
-  }
   return (
     <ThemeProvider>
       <CSSReset />
-      <div id='container'>
-        <NavBar />
-      </div>
       <Switch>
         <Route exact path='/'>
           <Home />

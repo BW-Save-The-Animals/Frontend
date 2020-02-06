@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import {
   Box,
@@ -7,9 +7,9 @@ import {
   Stack,
   Input,
   Button,
-  Heading,
 } from '@chakra-ui/core'
 import styled from '@emotion/styled'
+import NavBar from './NavBar'
 
 const StyledLogin = styled.div`
   width: 240px;
@@ -22,7 +22,7 @@ export default function Login(props) {
     password: '',
   }
   const [loginValues, setLoginValues] = useState(initialValues)
-  const [loggedIn, setLoggedIn] = useState(false)
+  const pageHistory = useHistory()
 
   const handleChange = e => {
     setLoginValues({
@@ -39,14 +39,17 @@ export default function Login(props) {
       })
       .then(res => {
         console.log(res.data)
-        setLoggedIn(true)
+        if (res.data.type === 1 || res.data.type === 2) {
+          pageHistory.push('/campaigns')
+        }
       })
       .catch(err => console.error(err))
     setLoginValues(initialValues)
   }
 
   return (
-    <>
+    <React.Fragment>
+      <NavBar page='login' />
       <StyledLogin>
         <Box
           w='25vw'
@@ -55,7 +58,7 @@ export default function Login(props) {
           p={4}
           color='black'
           borderColor='grey'>
-          <Heading>Login</Heading>
+          <h1 style={{ textAlign: "center" }}>Login</h1>
           <form onSubmit={props.onSubmit}>
             <FormControl>
               <Stack spacing={3}>
@@ -77,7 +80,8 @@ export default function Login(props) {
                   variantColor='teal'
                   m={2}
                   size='lg'
-                  tyep="submit">
+                  tyep='submit'
+                  onClick={handleSubmit}>
                   Login
                 </Button>
               </Stack>
@@ -85,6 +89,6 @@ export default function Login(props) {
           </form>
         </Box>
       </StyledLogin>
-    </>
+    </React.Fragment>
   )
 }

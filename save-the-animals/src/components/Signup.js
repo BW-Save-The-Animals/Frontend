@@ -7,7 +7,7 @@ import {
   Button,
   Textarea,
 } from '@chakra-ui/core'
-import Yup from 'yup'
+import NavBar from './NavBar'
 import axios from 'axios'
 import styled from '@emotion/styled'
 
@@ -68,60 +68,63 @@ export default function Signup() {
     console.log(formValues)
   }
   return (
-    <StyledSignUpForm>
-      <FormHeading>Sign up for your free account</FormHeading>
-      <FormControl>
-        <Stack spacing={3}>
-          <Input
-            type='text'
-            name='name'
-            placeholder='Name'
-            value={formValues.name}
-            onChange={handleChange}
-          />
-          <Input
-            type='email'
-            name='email'
-            placeholder='Email'
-            value={formValues.email}
-            onChange={handleChange}
-          />
-          <Input
-            type='password'
-            name='password'
-            placeholder='Password'
-            value={formValues.password}
-            onChange={handleChange}
-          />
-          <Input
-            type='password'
-            name='confirmPassword'
-            placeholder='Confirm Password'
-            value={formValues.confirmPassword}
-            onChange={handleChange}
-          />
-          <Textarea
-            name='about'
-            placeholder='A little about yourself'
-            value={formValues.about}
-            onChange={handleChange}
-          />
-          <Select
-            name='user_type'
-            placeholder='Account Type'
-            onChange={handleChange}>
-            <option value='supporter'>Supporter</option>
-            <option value='organization'>Organization</option>
-          </Select>
-        </Stack>
-        <Button
-          mt={4}
-          variantColor='green'
-          type='submit'
-          onClick={handleSubmit}>
-          Submit
-        </Button>
-      </FormControl>
-    </StyledSignUpForm>
+    <>
+      <NavBar page='signup' />
+      <StyledSignUpForm>
+        <FormHeading>Sign up for your free account</FormHeading>
+        <FormControl>
+          <Stack spacing={3}>
+            <Input
+              type='text'
+              name='name'
+              placeholder='Name'
+              value={formValues.name}
+              onChange={handleChange}
+            />
+            <Input
+              type='email'
+              name='email'
+              placeholder='Email'
+              value={formValues.email}
+              onChange={handleChange}
+            />
+            <Input
+              type='password'
+              name='password'
+              placeholder='Password'
+              value={formValues.password}
+              onChange={handleChange}
+            />
+            <Input
+              type='password'
+              name='confirmPassword'
+              placeholder='Confirm Password'
+              value={formValues.confirmPassword}
+              onChange={handleChange}
+            />
+            <Textarea
+              name='about'
+              placeholder='A little about yourself'
+              value={formValues.about}
+              onChange={handleChange}
+            />
+            <Select
+              name='user_type'
+              placeholder='Account Type'
+              onChange={handleChange}>
+              <option value='supporter'>Supporter</option>
+              <option value='organization'>Organization</option>
+            </Select>
+          </Stack>
+          <Button
+            mt={4}
+            variantColor='green'
+            type='submit'
+            onClick={handleSubmit}>
+            Submit
+          </Button>
+        </FormControl>
+      </StyledSignUpForm>
+    </>
   )
 }
