@@ -9,6 +9,7 @@ import NavBar from './components/NavBar'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Campaigns from './components/Campaigns'
+import CampaignsDetails from './components/CampaignDetails'
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route path='/campaigns'>
           <Campaigns />
+        </Route>
+        <Route path='/campaign/:id'>
+          <CampaignsDetails />
         </Route>
       </Switch>
     </ThemeProvider>

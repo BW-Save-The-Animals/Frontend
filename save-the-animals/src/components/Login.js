@@ -1,13 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-import {
-  Box,
-  FormControl,
-  Stack,
-  Input,
-  Button,
-} from '@chakra-ui/core'
+import { Box, FormControl, Stack, Input, Button } from '@chakra-ui/core'
 import styled from '@emotion/styled'
 import NavBar from './NavBar'
 
@@ -33,10 +27,14 @@ export default function Login(props) {
 
   const handleSubmit = e => {
     axios
-      .post('https://save-all-the-animals.herokuapp.com/api/auth/login', {
-        email: loginValues.email,
-        password: loginValues.password,
-      })
+      .post(
+        'https://save-all-the-animals.herokuapp.com/api/auth/login',
+        {
+          email: loginValues.email,
+          password: loginValues.password,
+        },
+        { withCredentials: true },
+      )
       .then(res => {
         console.log(res.data)
         if (res.data.type === 1 || res.data.type === 2) {
@@ -58,7 +56,7 @@ export default function Login(props) {
           p={4}
           color='black'
           borderColor='grey'>
-          <h1 style={{ textAlign: "center" }}>Login</h1>
+          <h1 style={{ textAlign: 'center' }}>Login</h1>
           <form onSubmit={props.onSubmit}>
             <FormControl>
               <Stack spacing={3}>

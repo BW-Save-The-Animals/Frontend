@@ -26,16 +26,20 @@ export default function Campaigns() {
   useEffect(() => {
     axios
       .get(api_url, { withCredentials: true })
-      .then(res => console.log(res.data))
+      .then(res => {
+        setCampaigns(res.data)
+        console.log(res.data)
+      })
       .catch(err => console.error(err))
-  }, [campaigns])
+  }, [])
   return (
     <React.Fragment>
       <NavBar page='signout' />
       <CampaignHeading>Campaigns</CampaignHeading>
       <CampaignCards>
-        {data.map(campaign => {
+        {campaigns.map(campaign => {
           const {
+            id,
             title,
             description,
             funding_goal,
@@ -45,6 +49,7 @@ export default function Campaigns() {
           } = campaign
           return (
             <Campaign
+              id={id}
               title={title}
               description={description}
               funding_goal={funding_goal}
