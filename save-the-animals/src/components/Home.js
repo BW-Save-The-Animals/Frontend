@@ -1,11 +1,12 @@
 import React from 'react'
 import NavBar from './NavBar'
+import Landing from './Landing'
 
 export default function Home() {
   return (
     <React.Fragment>
       <NavBar page='all' />
-      <h1>Landing Page</h1>
+      <Landing />
     </React.Fragment>
   )
 }
