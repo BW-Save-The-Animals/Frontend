@@ -11,7 +11,7 @@ const StyledNav = styled.nav`
   border-bottom: 1px solid gray;
   box-shadow: 2px 6px 6px grey;
   padding: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 2px;
 `
 
 const StyledHeading = styled.h1`

@@ -1,13 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-import {
-  Box,
-  FormControl,
-  Stack,
-  Input,
-  Button,
-} from '@chakra-ui/core'
+import { Box, FormControl, Stack, Input, Button } from '@chakra-ui/core'
 import styled from '@emotion/styled'
 import NavBar from './NavBar'
 
@@ -33,14 +27,20 @@ export default function Login(props) {
 
   const handleSubmit = e => {
     axios
-      .post('https://save-all-the-animals.herokuapp.com/api/auth/login', {
-        email: loginValues.email,
-        password: loginValues.password,
-      })
+      .post(
+        'https://save-all-the-animals.herokuapp.com/api/auth/login',
+        {
+          email: loginValues.email,
+          password: loginValues.password,
+        },
+        { withCredentials: true },
+      )
       .then(res => {
         console.log(res.data)
-        if (res.data.type === 1 || res.data.type === 2) {
+        if (res.data.type === 1) {
           pageHistory.push('/campaigns')
+        } else if (res.data.type === 2) {
+          pageHistory.push('/campaigns/create')
         }
       })
       .catch(err => console.error(err))
@@ -51,14 +51,16 @@ export default function Login(props) {
     <React.Fragment>
       <NavBar page='login' />
       <StyledLogin>
-        <Box
-          w='25vw'
-          border='1px'
-          borderRadius='md'
-          p={4}
-          color='black'
-          borderColor='grey'>
-          <h1 style={{ textAlign: "center" }}>Login</h1>
+        <Box w='25vw' p={4} color='black' borderColor='grey'>
+          <h1
+            style={{
+              fontFamily: 'Stardos Stencil',
+              fontSize: '25px',
+              textAlign: 'center',
+              fontWeight: 'bold',
+            }}>
+            Login
+          </h1>
           <form onSubmit={props.onSubmit}>
             <FormControl>
               <Stack spacing={3}>
@@ -78,8 +80,7 @@ export default function Login(props) {
                 />
                 <Button
                   variantColor='teal'
-                  m={2}
-                  size='lg'
+                  w='100%'
                   tyep='submit'
                   onClick={handleSubmit}>
                   Login
