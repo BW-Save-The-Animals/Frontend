@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import data from '../assets/campaignData'
 import Campaign from './Campaign'
 import styled from '@emotion/styled'
 import NavBar from './NavBar'
@@ -31,7 +30,7 @@ export default function Campaigns() {
         console.log(res.data)
       })
       .catch(err => console.error(err))
-  }, [])
+  }, [campaigns])
   return (
     <React.Fragment>
       <NavBar page='signout' />

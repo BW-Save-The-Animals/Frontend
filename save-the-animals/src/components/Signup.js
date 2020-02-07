@@ -18,8 +18,11 @@ const StyledSignUpForm = styled.div`
 
 const FormHeading = styled.h1`
   font-family: 'Stardos Stencil';
-  font-size: 1.4rem;
+  font-size: 25px;
   font-weight: bold;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 10px;
 `
 
 export default function Signup() {

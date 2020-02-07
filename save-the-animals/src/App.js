@@ -5,11 +5,11 @@ import { ThemeProvider, CSSReset } from '@chakra-ui/core'
 
 // import components
 import Home from './components/Home'
-import NavBar from './components/NavBar'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Campaigns from './components/Campaigns'
 import CampaignsDetails from './components/CampaignDetails'
+import CreateCampaign from './components/CreateCampaign'
 
 function App() {
   return (
@@ -25,11 +25,14 @@ function App() {
         <Route path='/signup'>
           <Signup />
         </Route>
-        <Route path='/campaigns'>
+        <Route exact path='/campaigns'>
           <Campaigns />
         </Route>
         <Route path='/campaign/:id'>
           <CampaignsDetails />
+        </Route>
+        <Route path='/campaigns/create'>
+          <CreateCampaign />
         </Route>
       </Switch>
     </ThemeProvider>
