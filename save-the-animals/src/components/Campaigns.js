@@ -30,7 +30,7 @@ export default function Campaigns() {
         console.log(res.data)
       })
       .catch(err => console.error(err))
-  }, [campaigns])
+  }, [])
   return (
     <React.Fragment>
       <NavBar page='signout' />
@@ -48,6 +48,7 @@ export default function Campaigns() {
           } = campaign
           return (
             <Campaign
+              key={id}
               id={id}
               title={title}
               description={description}
